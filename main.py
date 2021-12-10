@@ -3,7 +3,7 @@ from tkinter import filedialog as fd
 csv_folder_dir = fd.askdirectory()
 import os
 
-files = os.listdir('./reports')
+files = os.listdir(csv_folder_dir)
 for file_name in files:
     print(file_name)
     if (file_name[-3:] != "csv"): continue
