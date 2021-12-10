@@ -16,6 +16,7 @@ for file_name in files:
         rdr = csv.reader(csvfile, delimiter = ',')
         headers = next(rdr)
         minute_column = None
+        attended = []
         for header in headers:
             if 'Duration' in header:
                 minute_column = headers.index(header)
@@ -26,7 +27,10 @@ for file_name in files:
             if email in sessions_attended:
                 sessions_attended[email][1] += 1
             else:
+                if email in attended:
+                    continue
                 sessions_attended[email] = [str(row[0]), 1] 
+                attended.append(email)
     for p1 in sessions_attended:
         for p2 in sessions_attended:
             if p1 is p2:
