@@ -1,4 +1,6 @@
 import csv
+from tkinter import filedialog as fd
+csv_folder_dir = fd.askdirectory()
 import os
 
 files = os.listdir('./reports')
