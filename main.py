@@ -21,7 +21,7 @@ for file_name in files:
             if 'Duration' in header:
                 minute_column = headers.index(header)
         for row in rdr:
-            email = str(row[1])
+            email = str(row[1] + "$" + row[0])
             if int(row[minute_column]) < 10:
                 continue
             if email in sessions_attended:
@@ -37,7 +37,7 @@ for p1 in sessions_attended:
         if p1 is p2:
             continue
         if (sessions_attended[p1][0] == sessions_attended[p2][0]):
-            merge = str(input('Duplicate names found, are these the same person? (Y/N): \n {a} \n {b} \n {c}\n'.format(a=sessions_attended[p1][0],b=p1,c=p2)))
+            merge = str(input('Duplicate names found.\n If the email is empty, they did not have an email. Are these the same person? (Y/N): \n Name: {a} \n Email1: {b} \n Email2: {c}\n'.format(a=sessions_attended[p1][0],b=p1.split('$')[0],c=p2.split("$")[0])))
             if (merge.lower() == 'y'):
                 sessions_attended[p1][1] += sessions_attended[p2][1]
                 sessions_attended[p2][1] = 0
