@@ -36,11 +36,16 @@ for file_name in files:
                 if (merge.lower() == 'y'):
                     sessions_attended[p1][1] += sessions_attended[p2][1]
                     sessions_attended[p2][1] = 0
+                    sessions_attended[p2][0] = ''
+
+def custom_key(item):
+    return item[1][1]
 
 def dict_to_csv(write_file, dict_data):
     with open(write_file, 'w') as towrite:
         writer = csv.writer(towrite)
-        for item in dict_data.items():
+        items = list(sorted(dict_data.items(), key = lambda x : x[1][1], reverse=True))
+        for item in items:
             email = item[0]
             name, sessions = item[1] 
             name_list = name.split(' ')
