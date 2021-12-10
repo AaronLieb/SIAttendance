@@ -17,5 +17,7 @@ Run the program using Python3
 
 `python3 main.py` or `python main.py`
 
+Select your folder
+
 an output file will be generated called `output.csv`
 
