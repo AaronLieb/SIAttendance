@@ -2,25 +2,26 @@ import csv
 from tkinter import filedialog as fd
 import os
 
+times = {}
 
-times = dict[str, tuple[str,int]]
-
+csv_folder_dir = './reports'
 #csv_folder_dir = fd.askdirectory()
-#files = os.listdir(csv_folder_dir)
-files = os.listdir('./reports')
+files = os.listdir(csv_folder_dir)
 for file_name in files:
-    print(file_name)
     if (file_name[-3:] != "csv"): continue
     with open(csv_folder_dir + '/' + file_name, newline='') as csvfile:
         rdr = csv.reader(csvfile, delimiter = ',')
-        rdr.next()
+        next(rdr)
         for row in rdr:
             print(','.join(row)) #  collat rows
-            if row[1] in times:
-                times[row[1]][1] += int(row[2])
+            email = str(row[1])
+            if email in times:
+                times[email][1] += int(row[2])
             else:
-                times[row[1]][0] = row[0]
-                times[row[1]][1] = row[2]
+                times[email] = (str(row[0]), int(row[2]))
+    """for(p1 in times):
+        for (p2 in times):
+        """
 
 
 
