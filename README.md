@@ -10,6 +10,8 @@ Navigate to Reports > Usage
 
 Starting with August, download each SI session usage report for that month. 
 
+You download each session report by clicking the participant number
+
 Put all the downloads in a folder
 
 Run the program using Python3
