@@ -8,13 +8,14 @@ Login to your fullerton.zoom.com portal
 
 Navigate to Reports > Usage
 
-Download your monthly reports from August to December
+Starting with August, download each SI session usage report for that month. 
+Make sure to check "Show unique users"
 
-Make sure to check "Export with meeting data" and "Show unique users"
+Put all the downloads in a folder
 
-Put all the downloads in a folde
+Run the program using Python3
 
-Run the program, select your folder
+`python3 main.py` or `python main.py`
 
-When prompted, enter the meeting ID of your sessions
+an output file will be generated called `output.csv`
 
