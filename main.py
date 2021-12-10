@@ -13,7 +13,6 @@ for file_name in files:
         rdr = csv.reader(csvfile, delimiter = ',')
         next(rdr)
         for row in rdr:
-            print(','.join(row)) #  collat rows
             email = str(row[1])
             if email in times:
                 times[email][1] += int(row[2])
