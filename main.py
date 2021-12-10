@@ -57,4 +57,9 @@ def dict_to_csv(write_file, dict_data):
             writer.writerow((formatted_name, default_prof, '', sessions))
 
 if __name__ == '__main__':
-    dict_to_csv('./output.csv', sessions_attended)
+    try:
+        dict_to_csv('./output.csv', sessions_attended)
+    except Exception as e:
+        print(e)
+    else:
+        print("output.csv file has been generated\n Love, Justin & Aaron")
