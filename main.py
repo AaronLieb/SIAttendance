@@ -19,9 +19,18 @@ for file_name in files:
                 times[email][1] += int(row[2])
             else:
                 times[email] = (str(row[0]), int(row[2]))
-    """for(p1 in times):
-        for (p2 in times):
-        """
+    for p1 in times:
+        for p2 in times:
+            if p1 is p2:
+                continue
+            if (times[p1][0] == times[p2][0]):
+                merge = str(input('Duplicate names found, are these the same person? (Y/N): \n {a} \n {b} \n {c}\n'.format(a=times[p1][0],b=p1,c=p2)))
+                if (merge.lower() == 'y'):
+                    times[p1][1] += times[p2][1]
+                    times.pop(p2)
+
+
+        
 
 
 
