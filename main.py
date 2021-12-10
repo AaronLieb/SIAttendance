@@ -31,23 +31,24 @@ for file_name in files:
                     continue
                 sessions_attended[email] = [str(row[0]), 1] 
                 attended.append(email)
-    for p1 in sessions_attended:
-        for p2 in sessions_attended:
-            if p1 is p2:
-                continue
-            if (sessions_attended[p1][0] == sessions_attended[p2][0]):
-                merge = str(input('Duplicate names found, are these the same person? (Y/N): \n {a} \n {b} \n {c}\n'.format(a=sessions_attended[p1][0],b=p1,c=p2)))
-                if (merge.lower() == 'y'):
-                    sessions_attended[p1][1] += sessions_attended[p2][1]
-                    sessions_attended[p2][1] = 0
-                    sessions_attended[p2][0] = ''
+
+for p1 in sessions_attended:
+    for p2 in sessions_attended:
+        if p1 is p2:
+            continue
+        if (sessions_attended[p1][0] == sessions_attended[p2][0]):
+            merge = str(input('Duplicate names found, are these the same person? (Y/N): \n {a} \n {b} \n {c}\n'.format(a=sessions_attended[p1][0],b=p1,c=p2)))
+            if (merge.lower() == 'y'):
+                sessions_attended[p1][1] += sessions_attended[p2][1]
+                sessions_attended[p2][1] = 0
+                sessions_attended[p2][0] +=  p2 + '$'
 
 def custom_key(item):
     return item[1][1]
 
 def dict_to_csv(write_file, dict_data):
     with open(write_file, 'w') as towrite:
-        writer = csv.writer(towrite)
+        writer = csv.writer(towrite, lineterminator='\n')
         items = list(sorted(dict_data.items(), key = lambda x : x[1][1], reverse=True))
         for item in items:
             email = item[0]
