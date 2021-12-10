@@ -4,6 +4,8 @@ import os
 
 sessions_attended = {}
 
+default_prof = input()
+
 csv_folder_dir = './reports'
 #csv_folder_dir = fd.askdirectory()
 files = os.listdir(csv_folder_dir)
@@ -31,9 +33,18 @@ for file_name in files:
                     sessions_attended[p1][1] += sessions_attended[p2][1]
                     sessions_attended.pop(p2)
 
+def dict_to_csv(write_file, dict_data):
+    with open(write_file, 'w') as towrite:
+        writer = csv.writer(towrite)
+        for item in dict_data.items():
+            email = item[0]
+            name, minutes = item[1] # change min to sesh
+            name_list = name.split(' ')
+            name_list.reverse()
+            formatted_name = ', '.join(name_list)
 
-        
+            writer.writerow((formatted_name, default_prof, minutes))
+#        writer.writerows(dict_data.items())
 
-
-
-                
+if __name__ == '__main__':
+    dict_to_csv('./output.csv', times)
