@@ -28,13 +28,13 @@ for file_name in files:
             name = str(row[0])
             if name in attended or int(row[minute_column]) < MIN_MINUTES:
                 continue
-            sessions_attended[name][1] += 1
+            sessions_attended[name] += 1
             attended.append(name)
 
 def dict_to_csv(write_file, dict_data):
     with open(write_file, 'w') as towrite:
         writer = csv.writer(towrite, lineterminator='\n')
-        items = sorted(data.items(), lambda kv: kv[1], reverse=True)
+        items = sorted(dict_data.items(), key=lambda kv: kv[1], reverse=True)
         for item in items:
             name = item[0]
             sessions = item[1] 
