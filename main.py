@@ -1,10 +1,14 @@
 import csv
 from tkinter import filedialog as fd
 import os
+from collections import defaultdict
 
-sessions_attended = {}
 
-default_prof = input('Enter the name of the professor: ')
+MIN_MINUTES = 10
+sessions_attended = defaultdict(lambda : 0)
+
+default_prof = input('Enter the name of the default professor: ')
+default_section = input('Enter the name of the default section: ')
 
 #csv_folder_dir = './reports'
 csv_folder_dir = fd.askdirectory()
@@ -21,45 +25,26 @@ for file_name in files:
             if 'Duration' in header:
                 minute_column = headers.index(header)
         for row in rdr:
-            email = str(row[1] + "$" + row[0])
-            if int(row[minute_column]) < 10:
+            name = str(row[0])
+            if name in attended or int(row[minute_column]) < MIN_MINUTES:
                 continue
-            if email in sessions_attended:
-                sessions_attended[email][1] += 1
-            else:
-                if email in attended:
-                    continue
-                sessions_attended[email] = [str(row[0]), 1] 
-                attended.append(email)
-
-for p1 in sessions_attended:
-    for p2 in sessions_attended:
-        if p1 is p2:
-            continue
-        if (sessions_attended[p1][0] == sessions_attended[p2][0]):
-            merge = str(input('Duplicate names found.\n If the email is empty, they did not have an email. Are these the same person? (Y/N): \n Name: {a} \n Email1: {b} \n Email2: {c}\n'.format(a=sessions_attended[p1][0],b=p1.split('$')[0],c=p2.split("$")[0])))
-            if (merge.lower() == 'y'):
-                sessions_attended[p1][1] += sessions_attended[p2][1]
-                sessions_attended[p2][1] = 0
-                sessions_attended[p2][0] +=  p2 + '$'
-
-def custom_key(item):
-    return item[1][1]
+            sessions_attended[name][1] += 1
+            attended.append(name)
 
 def dict_to_csv(write_file, dict_data):
     with open(write_file, 'w') as towrite:
         writer = csv.writer(towrite, lineterminator='\n')
-        items = list(sorted(dict_data.items(), key = lambda x : x[1][1], reverse=True))
+        items = sorted(data.items(), lambda kv: kv[1], reverse=True)
         for item in items:
-            email = item[0]
-            name, sessions = item[1] 
+            name = item[0]
+            sessions = item[1] 
             name_list = name.split(' ')
             name_list.reverse()
             formatted_name = ', '.join(name_list)
 
             if sessions <= 0:
                 continue
-            writer.writerow((formatted_name, default_prof, '', sessions))
+            writer.writerow((formatted_name, default_prof, default_section, sessions))
 
 if __name__ == '__main__':
     try:
